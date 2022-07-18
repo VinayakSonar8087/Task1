@@ -1,0 +1,147 @@
+Task 2 
+
+Exercise 01.	
+	Write a shell script that accepts a filename, starting and ending line 
+	numbers as arguments and displays all the lines between the given 
+	line numbers.
+
+[root@localhost ~]# vi 1st.sh 
+	echo "enter the filename"
+
+	read fname
+
+	echo "enter the starting line number"
+
+	read s
+
+	echo "enter the ending line number"
+
+	read n
+
+	sed -n $s,$n\p $fname | cat > newline
+
+	cat newline
+
+
+
+[root@localhost ~]# ./1st.sh
+
+bash: ./1s.sh: Permission denied
+
+[root@localhost ~]# chmod 777 1st.sh
+
+[root@localhost ~]# ./1st.sh
+
+enter the filename
+
+demo.text
+
+enter the starting line number
+
+1
+
+enter the ending line number
+
+4
+
+Hey this is line no 1
+hey this is line no 2
+hey this is line no 3
+hey this is line no 4
+
+
+---------------------------------------------------------------
+
+
+Exercise 02:
+	
+	Write a shell script that deletes all lines containing a specified word in 
+	one or more files supplied as arguments to it.
+	Ans:
+	$sed -ie '/pea/d' foo.txt
+---------------------------------------------------------------
+
+Exercise 03:
+	Write a shell script that displays a list of all files in the current directory
+	to which the user has read, write and execute permissions.
+	Ans: 
+
+	echo "The name of all files having all permissions :"
+
+	for file in *
+	do
+
+	if [ -f $file ]
+	then
+
+	if [ -r $file -a -w $file -a -x $file ]
+	then
+
+	ls -l $file
+
+	fi
+	fi
+
+	done
+	
+---------------------------------------------------------------	
+Exercise 05:
+
+	Write a shell script that receives any number of file names as
+	its arguments, counts and reports the occurrence of each word
+	that is present in the first argument file on other argument files.
+
+	Ans: 
+	do
+	if [ -f $x ]
+	then
+	echo " $x is  a file "
+	echo " no of lines in the file are "
+	wc -l $x
+	else [ -d $x ]
+	then
+	echo " $x is  a directory "
+	fi
+	done
+
+
+---------------------------------------------------------------
+
+Exercise 06:
+
+	Write a shell script to list all of the directory files in a directory
+
+Ans: 	#!/bin/bash
+	files=$(ls)
+	echo The list of files and directories = $files
+	
+---------------------------------------------------------------
+
+Exercise 07:
+
+	Write a shell script to find the factorial of a given number.
+
+Ans: 
+	#!/bin/bash
+	echo Enter a number to find factorial
+	read num
+	fact=1
+	zero=0
+	while [ $num -gt 0 ]
+	do
+	 fact=$(( $fact * $num ))
+	  let num--
+	done
+	echo factiorial is $fact.
+---------------------------------------------------------------
+
+Exercise 08:
+	Write a shell script to check all the timestamp of a file.
+
+	#!/bin/bash
+	echo write a filename of which u want to see timestamp
+	read filename
+	timestamp=$(stat $filename)
+	echo $timestamp
+
+
