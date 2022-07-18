@@ -1,0 +1,163 @@
+1. How to check a process running with full path information?
+Ans:-   ps aux
+	ps 
+
+2. Using vi editor, how to globally replace a string?
+Ans:- in vi editor...       :%s/oldString/replacingNewString/g
+
+3. How to search for a string in all files under a folder and sub-folders?
+ Ans:-  grep -r "SearchWord"
+
+4. How to remove control-m characters? Refer file /home/srinivasan.r/unix/ctrlm.txt on agni server which contains these characters.
+Ans:-   :  %s/^M//g     ... in vi editor   , (^ = ctrl + V)
+ 
+5. How to redirect the output of a command to a file output.txt and errors to another file errors.txt ?
+Ans:-  // command-name > output.txt 2> error.txt
+
+
+6. How to redirect (COPY) the output of a command and append to the file?
+ Ans :- cat file1name >> file2name
+ 
+*7. How to redirect STDERR to STDOUT?
+ Ans:- cmd>>fileName 2>&1
+ 
+8. How to find memory usage on a unix system
+Ans:- free   or   vmstat  
+
+9. How to find how you are logged in as
+Ans :- command : w
+
+10. How to find the type of machine you (Server Name) are currently on and name of the machine?
+Ans: hostname or hostnamectl
+ 
+11. How to find out if a particular port is being used?
+Ans.: netstat or netstat -anpe | grep LISTEN 
+ 
+12. How do seperate a process from the current running shell so that it continues to run even after the user logs out?
+Ans:  sleep 100 &
+      fg %(process id)
+      bg %(process id) it will start running in background.
+ 
+13. How do you know how  much disk is available?
+Ans: df
+ 
+14. What is the difference between kill -9 and just kill?
+Ans:    kill/ kill -15 is correct way to terminate 
+	kill -9 is unsafe way(forcefully close)
+ 
+*15. What permissions chmod 710 on a directory do?
+Ans>: It sets permission, so user can read, write, execute.
+chmod cmd is used to change mod i.e. it is used to change file permission.
+in 710
+7(first digit) - for owner permission
+1(second digit)- for group permission
+0(third digit)- for everyone
+1 -execute
+2 -write
+3 -write and execute
+4 -read
+5 -read and execute
+6 -read and write
+7 -read, write and execute
+here 710 means owner can read, write and execute(7). Group can execute(1). Everyone can do nothing(0). 
+ 
+
+16. How to run a process in the background ? ..Ans : bg
+How to bring it to the foreground ?          ..Ans : fg
+	sleep 100 &       (....sleeps for 100 seconds)
+	jobs
+	fg %1
+
+ 
+*17. How to find how many times the word “hello” occurs in a file.
+Ans: grep -o -i Hello test.txt | wc -l
+ 
+*18. How to check whether a machine is reachable from your machine.
+Ans: ping ip address  (e.g.: ping 10.76.143.157)
+     ping ctec-ind-295  (laptop stricker number)
+
+
+
+ 
+Commands to practice (a single command as long as possible) :
+
+1* List number of files in a directory    ...>>>[Ans.:ls -l   ]
+   and count lines in each file    >>>[Ans.:wc -l filename.java (_or_) wc filename.java  (_or_)  wc --lines *.java | nl]
+
+2* Find the files which are 5 days older  ...>>>[Ans.:  ]
+   and then zip them      >>>[Ans.:zip -r newName.zip directoryName  ]
+   >>>[Ans: zip -r zipfile2 `find directoryName -mtime 5 -print`  ]
+
+3* read a file and replace 10th appearance of the word "the" to "abc" and write the output in another file   >>>[Ans.:sed 's/the/abc/10' fileName.txt > file2.txt   ]
+
+4* list of 5 largest files from any directory       >>>[Ans.:ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head   ]
+
+5* find out the available memory on the server,    ...>>>[Ans.:grep MemTotal /proc/meminfo  ]   
+   how long the server has been up and top 5 processes taking max memory of the server     .......>>>[Ans.:       ]
+
+6* find out the pid of the process        ...>>>[Ans.:ps aux  ]
+   and kill the process gracefully/forcefully       >>>[Ans.:kill -15 27707   ...here 27707 is PID  ]
+
+7* find out how many users are connected to port 22 on a server      >>>[Ans.:netstat -anp | grep 22 | wc -l     ]
+
+8* copy a file from one server to another (using scp)      >>>[Ans.:server to local m/c: scp vinayak.sonar@10.76.139.50:/home/vinayak.sonar/Task1/1.java .  (and) 
+    local m/c to server : scp /c/Users/vinayak.sonar/desktop/error.txt vinayak.sonar@10.76.139.50:/home/vinayak.sonar/New      ]
+
+
+
+
+
+Script to write ->
+1. write a bash script to print the the present working directory along with its list of files inside
+   The current working Directory ->
+   The list of files and Subdirectories ->
+Ans:    cat /etc/shells
+	which shells
+	vi 1ndQue.sh
+		#! /usr/bin/bash
+		echo The current working directory:;
+		pwd;
+		echo The list of files present in current directory:;
+		ls;
+		echo Files present in the subdirectory present in current directory:;
+		ls -d;
+		echo the files present in subduirectory are :;
+		ls */;
+	./1ndQue.sh
+	ls -l 
+	chmod +x 1ndQue.sh
+	./1ndQue.sh
+
+
+2. write a bash script to print with tab delimited first 50 Fibonacci numbers in reverse directions
+Ans:	N=6
+	a=0
+	b=1
+  
+	echo "The Fibonacci series is : "
+  
+	for (( i=0; i<N; i++ ))
+	do
+    		echo -n "$a "
+    		fn=$((a + b))
+    		a=$b
+    		b=$fn
+	done
+			
+
+
+3. write a bash script which takes a line as input and then print the same line in capital letters
+Ans: 	vi 3rdQue.sh
+		name='hello vinayak, how are you?'
+		echo ${name^^}
+
+	./3rdQue.sh
+	chmod +x 3rdQue.sh
+	./3rdQue.sh
+
+
+
+
+
+
+
